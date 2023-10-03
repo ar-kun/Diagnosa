@@ -1,0 +1,205 @@
+.hero-section {
+  background-image: url("src/assets/Hero.png");
+}
+.hero-text-section {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.hero-title {
+  font-weight: 800;
+  font-size: 57px;
+  width: 746px;
+  text-align: center;
+}
+.hero-text {
+  font-weight: 400;
+  font-size: 18px;
+  color: grey;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.hero-button {
+  border-radius: 50px !important;
+  height: 44px;
+  width: 200px;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-image-section {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-image {
+  width: 1019px;
+  height: 553px;
+}
+
+.aboutUs-transition-text {
+  margin-top: 100px;
+  color: #377dff;
+  font-weight: 600;
+  font-size: 21px;
+  text-align: center;
+}
+.aboutUs-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: 49px;
+}
+
+.aboutUs-description {
+  margin-top: 50px;
+  display: flex;
+}
+.aboutUs-description .description-image {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+.aboutUs-description .description-text {
+  padding: 30px;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.aboutUs-description .description-text .description,
+.aboutUs-description .description-text .caution {
+  font-weight: 400;
+  font-size: 16px;
+  color: grey;
+}
+
+.aboutUs-button {
+  border-radius: 50px !important;
+  height: 44px;
+  width: 200px;
+  margin-top: 10px;
+}
+
+.find-answer-section {
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+}
+.find-answer-text {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+}
+.find-answer-text .wrap-content {
+  width: 437px;
+  font-weight: 700;
+  font-size: 49px;
+}
+.find-answer-image {
+  width: 50%;
+}
+.findAnswerImage {
+  width: 570px;
+  height: 330px;
+}
+.dot-image-landing-page {
+  position: relative;
+  bottom: 70px;
+  left: 450px;
+}
+@media (max-width: 992px) {
+  .hero-section {
+    background-image: url("src/assets/Hero-mobile.png");
+    background-repeat: no-repeat;
+  }
+  .hero-title {
+    font-weight: 800;
+    font-size: 25px;
+    width: 100%;
+    text-align: center;
+  }
+  .hero-text {
+    font-weight: 400;
+    font-size: 12px;
+    color: grey;
+    text-align: center;
+    margin-top: 10px;
+  }
+  .hero-image {
+    width: 318px;
+    height: 225px;
+  }
+  .aboutUs-transition-text {
+    margin-top: 50px;
+    color: #377dff;
+    font-weight: 600;
+    font-size: 13px;
+    text-align: center;
+  }
+  .aboutUs-title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 21px;
+  }
+  .aboutUs-description {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .aboutUs-description .description-text {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+  }
+  .aboutUs-description .description-text .description,
+  .aboutUs-description .description-text .caution {
+    font-size: 13px;
+  }
+
+  .aboutUs-description .description-image {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .aboutUs-description .description-image .aboutUsImage {
+    width: 305px;
+    height: 231px;
+  }
+  .find-answer-section {
+    margin: 50px 0;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+  .find-answer-text {
+    margin-top: 40px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .find-answer-text .wrap-content {
+    width: 300px;
+    font-weight: 700;
+    font-size: 49px;
+  }
+  .find-answer-image {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .findAnswerImage {
+    width: 355px;
+    height: 246px;
+  }
+  .dot-image-landing-page {
+    display: none;
+  }
+}

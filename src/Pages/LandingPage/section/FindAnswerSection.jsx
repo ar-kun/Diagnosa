@@ -1,6 +1,6 @@
 import { Container, Button } from "reactstrap";
-import FindAnswer from "src/assets/landingPageImage.png";
-import DotImage from "src/assets/DotImage.png";
+import FindAnswer from "src/assets/landingPageImage.webp";
+import DotImage from "src/assets/DotImage.webp";
 
 export default function FindAnswerSection() {
   return (

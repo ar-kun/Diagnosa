@@ -1,5 +1,5 @@
 import { Container, Button } from "reactstrap";
-import aboutUsImage from "src/assets/aboutUsImage.png";
+import aboutUsImage from "src/assets/aboutUsImage.webp";
 
 export default function AboutUsSection() {
   return (

@@ -1,5 +1,5 @@
 .hero-section {
-  background-image: url("src/assets/Hero.png");
+  background-image: url("src/assets/Hero.webp");
 }
 .hero-text-section {
   margin-top: 30px;
@@ -19,6 +19,7 @@
   color: grey;
   text-align: center;
   margin-top: 10px;
+  width: 746px;
 }
 
 .hero-button {
@@ -38,7 +39,7 @@
 
 .hero-image {
   width: 1019px;
-  height: 553px;
+  height: 608px;
 }
 
 .aboutUs-transition-text {
@@ -62,6 +63,10 @@
   width: 50%;
   display: flex;
   justify-content: center;
+}
+.aboutUs-description .description-image .aboutUsImage {
+  width: 562px;
+  height: 436px;
 }
 .aboutUs-description .description-text {
   padding: 30px;
@@ -112,16 +117,18 @@
   position: relative;
   bottom: 70px;
   left: 450px;
+  width: 104px;
+  height: 90px;
 }
 @media (max-width: 992px) {
   .hero-section {
-    background-image: url("src/assets/Hero-mobile.png");
+    background-image: url("src/assets/Hero-mobile.webp");
     background-repeat: no-repeat;
   }
   .hero-title {
     font-weight: 800;
     font-size: 25px;
-    width: 100%;
+    width: 294px;
     text-align: center;
   }
   .hero-text {
@@ -130,6 +137,7 @@
     color: grey;
     text-align: center;
     margin-top: 10px;
+    width: 294px;
   }
   .hero-image {
     width: 318px;

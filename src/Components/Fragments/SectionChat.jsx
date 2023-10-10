@@ -1,13 +1,13 @@
 export const SectionChat = () => {
   return (
     <>
-      <ChatSection />
       <HistorySection />
+      <ChatSection />
     </>
   );
 };
 
-const ChatSection = () => {
+const HistorySection = () => {
   return (
     <section id="histori" class="[&>*]:my-2 w-[30%] h-screen flex flex-col">
       <div class="flex justify-end pt-10">
@@ -44,7 +44,7 @@ const ChatSection = () => {
   );
 };
 
-const HistorySection = () => {
+const ChatSection = () => {
   return (
     <section
       id="chat"

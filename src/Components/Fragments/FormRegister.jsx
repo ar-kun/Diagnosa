@@ -1,16 +1,54 @@
 /* eslint-disable react/prop-types */
+import { useEffect, useRef, useState } from 'react';
+import { Register } from '../../Services/authService';
 import { Button } from '../Elements/Button/Index';
 import { InputForm } from '../Elements/Input/Index';
 
 export const FormRegister = ({ title }) => {
+ const [registerFailed, setRegisterFailed] = useState('');
+ const [wrongPassword, setWrongPassword] = useState('');
+ const handleRegister = (e) => {
+  e.preventDefault();
+  const email = e.target.email.value;
+  const password = e.target.password.value;
+  const confirmPassword = e.target.confirmPassword.value;
+
+  if (password !== confirmPassword) {
+   setRegisterFailed(true);
+   setWrongPassword('Password tidak cocok');
+  } else {
+   const user = {
+    email: email,
+    password: password,
+   };
+
+   Register(user, (status, res) => {
+    if (status) {
+     localStorage.setItem('isLogin', true);
+     localStorage.setItem('token', res);
+     window.location.href = '/auth/login';
+    } else {
+     setRegisterFailed(res.response.data);
+    }
+   });
+  }
+ };
+
+ const emailRef = useRef(null);
+ useEffect(() => {
+  emailRef.current.focus();
+  return () => {};
+ }, []);
+
  return (
   <>
    <h1 className="text-3xl font-bold">{title}</h1>
    <p>Silakan isi form untuk mendaftarkan akun Anda.</p>
-   <form>
-    <InputForm label={'Email'} type={'email'} placeholder={'example@gmail.com'} id={'email'} name={'email'} />
+   <form onSubmit={handleRegister}>
+    <InputForm label={'Email'} type={'email'} placeholder={'example@gmail.com'} id={'email'} name={'email'} ref={emailRef} />
     <InputForm label={'Password'} type={'password'} placeholder={'********'} id={'password'} name={'password'} />
     <InputForm label={'Confirm Password'} type={'password'} placeholder={'********'} id={'confirmPassword'} name={'confirmPassword'} />
+    {registerFailed && <p className="text-red-400 font-bold text-center my-3">{wrongPassword}</p>}
 
     <Button
      type="submit"

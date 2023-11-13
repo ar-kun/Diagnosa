@@ -1,4 +1,5 @@
 import { useState } from 'react';
+
 import { FooterLayout } from '../Components/Layouts/FooterLayout';
 import { SectionCategory } from '../Components/Fragments/SectionCategory';
 import { HeadingCategory } from '../Components/Fragments/HeadingCategory';

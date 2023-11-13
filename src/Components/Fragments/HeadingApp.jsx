@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export const HeadingMain = () => {
  return (
   <>
@@ -8,9 +10,9 @@ export const HeadingMain = () => {
     <p className="leading-7 lg:leading-5 text-lg font-light mb-12 mt-3">
      Ingin mendapatkan diagnosis penyakit secara cepat dari keluhan Anda? Kami siap membantu dengan teknologi AI terbaru!
     </p>
-    <a href="diagnosa.html" className="bg-secondary py-3 px-10 rounded-3xl text-white shadow-lg shadow-blue-500/50">
+    <Link to={'/category'} className="bg-secondary py-3 px-10 rounded-3xl text-white shadow-lg shadow-blue-500/50">
      Mulai Diagnosis
-    </a>
+    </Link>
    </div>
    <img src="./images/bg.png" alt="" className="w-full my-5 lg:w-3/4 lg:my-0" />
   </>

@@ -10,6 +10,8 @@ import { Login } from './Pages/Login.jsx';
 import { Register } from './Pages/Register.jsx';
 import { Diagnosis } from './Pages/Diagnosis.jsx';
 import { Chat } from './Pages/Chat.jsx';
+import { ForgotPasswordPage } from './Pages/ForgotPassword.jsx';
+import { ResetPasswordPage } from './Pages/ResetPassword.jsx';
 
 const router = createBrowserRouter([
  {
@@ -43,6 +45,16 @@ const router = createBrowserRouter([
    {
     path: 'register',
     element: <Register />, //Register Page
+    errorElement: <ErrorPage />,
+   },
+   {
+    path: 'forgot-password',
+    element: <ForgotPasswordPage />, //Forgot Password Page
+    errorElement: <ErrorPage />,
+   },
+   {
+    path: 'reset-password',
+    element: <ResetPasswordPage />, //Reset Password Page
     errorElement: <ErrorPage />,
    },
   ],

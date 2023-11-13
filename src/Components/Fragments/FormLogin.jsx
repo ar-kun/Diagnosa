@@ -1,16 +1,44 @@
 /* eslint-disable react/prop-types */
+import { useEffect, useRef, useState } from 'react';
 import { Button } from '../Elements/Button/Index';
 import { InputForm } from '../Elements/Input/Index';
 import { Input } from '../Elements/Input/Input';
 import { Label } from '../Elements/Input/Label';
+import { Login } from '../../Services/authService';
+import { Link } from 'react-router-dom';
 
 export const FormLogin = ({ title }) => {
+ const [loginFailed, setLoginFailed] = useState(false);
+ const handleLogin = (e) => {
+  e.preventDefault();
+  const user = {
+   email: e.target.email.value,
+   password: e.target.password.value,
+  };
+  Login(user, (status, res) => {
+   if (status) {
+    localStorage.setItem('isLogin', true);
+    localStorage.setItem('token', res);
+    window.location.href = '/category';
+   } else {
+    setLoginFailed(res);
+   }
+  });
+ };
+
+ const emailRef = useRef(null);
+ useEffect(() => {
+  emailRef.current.focus();
+  return () => {};
+ }, []);
+
  return (
   <>
    <h1 className="text-3xl font-bold">{title}</h1>
    <p>Silakan isi form untuk mengakses akun Anda.</p>
-   <form>
-    <InputForm label={'Email'} type={'email'} placeholder={'example@gmail.com'} id={'email'} name={'email'} />
+   {loginFailed && <p className="bg-slate-200 rounded-md text-red-500 py-2 font-bold text-center my-3">{loginFailed}</p>}
+   <form onSubmit={handleLogin}>
+    <InputForm label={'email'} type={'email'} placeholder={'example@gmail.com'} id={'email'} name={'email'} ref={emailRef} />
     <InputForm label={'Password'} type={'password'} placeholder={'********'} id={'password'} name={'password'} />
     <div className="flex justify-between mt-3">
      <div className="flex items-start mb-6">
@@ -30,9 +58,9 @@ export const FormLogin = ({ title }) => {
        Remember me
       </Label>
      </div>
-     <Button href="./forgot-password" className="ml-2 text-sm font-medium text-secondary underline dark:text-gray-300">
+     <Link to={'/auth/forgot-password'} className="ml-2 text-sm font-medium text-secondary underline dark:text-gray-300">
       Lupa Password?
-     </Button>
+     </Link>
     </div>
     <Button
      type="submit"

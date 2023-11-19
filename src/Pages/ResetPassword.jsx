@@ -12,6 +12,7 @@ export const ResetPasswordPage = () => {
  const id = queryParams.get('id');
 
  const [openAlert, setOpenAlert] = useState(false);
+ const [loginFailed, setLoginFailed] = useState('');
 
  const handlerSendClick = (e) => {
   e.preventDefault();
@@ -29,7 +30,7 @@ export const ResetPasswordPage = () => {
      window.location.href = '/auth/login';
     }, 3000);
    } else {
-    // setLoginFailed(res);
+    setLoginFailed(res);
    }
   });
  };
@@ -49,6 +50,7 @@ export const ResetPasswordPage = () => {
     <div className="max-w-4xl text-white">
      <div className="flex flex-col items-center justify-center p-4 space-y-4 antialiased bg-gray-100">
       <div className="w-full px-8 max-w-lg space-y-4 bg-gradient-to-r  from-sky-500 to-secondary rounded-md py-16">
+       {loginFailed && <p className="bg-slate-200 rounded-md text-red-500 py-2 font-bold text-center my-3">{loginFailed}</p>}
        <h1 className="text-2xl font-bold text-center">Create new password</h1>
        <p className="text-center mx-12">Your new password must be different from previous used passwords.</p>
        <form onSubmit={handlerSendClick} className="space-y-6 w-ful">

@@ -8,6 +8,7 @@ import emailjs from '@emailjs/browser';
 export const ForgotPasswordPage = () => {
  const [openAlert, setOpenAlert] = useState(false);
  const [inputValue, setInputValue] = useState('');
+ const [loginFailed, setLoginFailed] = useState('');
 
  const serviceId = import.meta.env.VITE_SERVICE_ID;
  const templateId = import.meta.env.VITE_TEMPLATE_ID;
@@ -42,7 +43,7 @@ export const ForgotPasswordPage = () => {
     setOpenAlert(true);
     setInputValue('');
    } else {
-    // setLoginFailed(res);
+    setLoginFailed(res);
    }
   });
  };
@@ -57,8 +58,9 @@ export const ForgotPasswordPage = () => {
   <div className="flex flex-col gap-5 ">
    <div className="flex justify-center w-full items-center h-screen gap-10">
     <div className="max-w-4xl text-white">
-     <div className="flex flex-col items-center justify-center p-4 space-y-4 antialiased bg-gray-100">
+     <div className="flex flex-col items-center justify-center p-4 space-y-4 antialiased bg-gray-100 rounded-md">
       <div className="w-full px-8 max-w-lg space-y-6 bg-gradient-to-r  from-sky-500 to-secondary rounded-md py-16">
+       {loginFailed && <p className="bg-slate-200 rounded-md text-red-500 py-2 font-bold text-center my-3">{loginFailed}</p>}
        <h1 className=" mb-6 text-2xl font-bold text-center">Send Request Reset Password</h1>
        <p className="text-center mx-12">
         We are here to help you to recover your password. Enter the email address you used when you joined and we&apos;ll send you instructions to

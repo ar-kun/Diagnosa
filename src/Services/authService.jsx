@@ -24,11 +24,16 @@ export const Register = (user, callback) => {
  axios
   .post('http://localhost:7000/api/v1/auth/register', user)
   .then((res) => {
-   console.log(res);
    callback(true, res.data.token);
   })
-  .catch((err) => {
-   callback(false, err);
+  .catch((error) => {
+   if (error.response) {
+    const errorMessage = error.response.data.msg;
+    callback(false, errorMessage);
+   } else {
+    console.log(error);
+    callback(false, 'An error occurred while trying to register.');
+   }
   });
 };
 
@@ -38,8 +43,14 @@ export const ForgotPassword = (user, callback) => {
   .then((res) => {
    callback(true, res.data);
   })
-  .catch((err) => {
-   callback(false, err);
+  .catch((error) => {
+   if (error.response) {
+    const errorMessage = error.response.data.msg;
+    callback(false, errorMessage);
+   } else {
+    console.log(error);
+    callback(false, 'An error occurred while trying to request reset password.');
+   }
   });
 };
 
@@ -49,8 +60,14 @@ export const ResetPassword = (user, callback) => {
   .then((res) => {
    callback(true, res.data);
   })
-  .catch((err) => {
-   callback(false, err);
+  .catch((error) => {
+   if (error.response) {
+    const errorMessage = error.response.data.msg;
+    callback(false, errorMessage);
+   } else {
+    console.log(error);
+    callback(false, 'An error occurred while trying to reset password.');
+   }
   });
 };
 

@@ -77,3 +77,35 @@ export const getSessionId = (token, callback) => {
    callback(false, err);
   });
 };
+
+export const getAllMessages = (token, callback) => {
+ axios
+  .get('http://localhost:7000/api/v1/chat', {
+   headers: {
+    Authorization: `Bearer ${token}`,
+   },
+  })
+  .then((res) => {
+   callback(true, res.data.conversations);
+  })
+  .catch((err) => {
+   callback(false, err);
+  });
+};
+
+export const deleteMessage = (token, sessionId, callback) => {
+ axios
+  .delete(`http://localhost:7000/api/v1/chat/delete-chat-history/${sessionId}`, {
+   headers: {
+    Authorization: `Bearer ${token}`,
+   },
+  })
+  .then((res) => {
+   console.log(res);
+   callback(true, res.data);
+  })
+  .catch((err) => {
+   console.log(err);
+   callback(false, err);
+  });
+};

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from 'react';
 // import { IsLoggedIn } from '../../Hooks/isLogin';
-import { getHistoryMessages } from '../../Services/messageService';
+import { deleteMessage, getAllMessages, getHistoryMessages } from '../../Services/messageService';
 import { IsLoggedIn } from '../../Hooks/isLogin';
 import { getUsername } from '../../Services/authService';
 import { SessionChat } from '../../Hooks/isSession';
@@ -21,6 +21,7 @@ export const SectionChat = () => {
  const [dataHistori, setDataHistori] = useState([]);
 
  const [userGuide, setUserGuide] = useState(true);
+ const [deleteChat, setDeleteChat] = useState(false);
 
  const sessionData = JSON.parse(localStorage.getItem('sessionId'));
  let latestSession = null;
@@ -32,10 +33,22 @@ export const SectionChat = () => {
  }
 
  useEffect(() => {
+  getAllMessages(localStorage.getItem('token'), (result, data) => {
+   if (result) {
+    const historiDenganPesan = data.filter((conversation) => conversation.messages.length > 0);
+    setDataHistori(historiDenganPesan);
+   }
+  });
+ }, [response, deleteChat]);
+
+ useEffect(() => {
   setSessionId(latestSession.session);
   setDate(new Date().toLocaleDateString());
   setToken(localStorage.getItem('token'));
-  setDataHistori(JSON.parse(localStorage.getItem('sessionActive')).sort((a, b) => new Date(b.date) - new Date(a.date)));
+  // if (localStorage.getItem('sessionActive') === null) {
+  //  localStorage.setItem('sessionActive', JSON.stringify([]));
+  // }
+  // setDataHistori(JSON.parse(localStorage.getItem('sessionActive')).sort((a, b) => new Date(b.date) - new Date(a.date)));
  }, []);
 
  useEffect(() => {
@@ -126,6 +139,26 @@ export const SectionChat = () => {
   });
  };
 
+ const deleteHandler = (sessionId) => {
+  // Menampilkan konfirmasi dialog
+  const isConfirmed = window.confirm('Apakah Anda yakin ingin menghapus sesi ini?');
+  setDeleteChat(true);
+
+  if (isConfirmed) {
+   deleteMessage(localStorage.getItem('token'), sessionId, (result, data) => {
+    if (result) {
+     //  setHistori([]);
+     setText('');
+     setResponse('');
+     setChat([]);
+     setDeleteChat(false);
+    }
+   });
+  } else {
+   alert('Penghapusan dibatalkan.');
+  }
+ };
+
  return (
   <div className="flex justify-between w-full items-center gap-10 h-screen py-10">
    <HistorySection
@@ -134,6 +167,7 @@ export const SectionChat = () => {
     handleNewSessionId={handleNewSessionId}
     dataHistori={dataHistori}
     setUserGuide={setUserGuide}
+    deleteHandler={deleteHandler}
    />
    <ChatSection
     conversation={conversation}
@@ -151,8 +185,9 @@ export const SectionChat = () => {
  );
 };
 
-const HistorySection = ({ isLogin, historiHandler, handleNewSessionId, dataHistori, setUserGuide }) => {
+const HistorySection = ({ isLogin, historiHandler, handleNewSessionId, dataHistori, setUserGuide, deleteHandler }) => {
  const firstData = dataHistori.slice(0, 1);
+ const date = new Date().toLocaleDateString();
 
  return (
   <section id="histori" className="[&>*]:my-2 w-[30%] h-full flex flex-col">
@@ -168,13 +203,14 @@ const HistorySection = ({ isLogin, historiHandler, handleNewSessionId, dataHisto
     <i className="fa-solid fa-magnifying-glass"></i>
     <input type="text" className="w-full" placeholder="Cari Berdasarkan Nama Konsiltasi" />
    </div>
+
    {firstData.map((data, index) => (
     <div key={index} className="bg-gradient-to-r from-sky-500 to-secondary rounded-lg p-5 text-white">
-     <div className="flex flex-col justify-start items-start cursor-pointer" onClick={() => historiHandler(data.session)}>
+     <div className="flex flex-col justify-start items-start cursor-pointer" onClick={() => historiHandler(data._id)}>
       <h3 className="font-bold">Konsutasi Baru</h3>
-      <p className="italic text-sm">{new Date(data.date).toUTCString()}</p>
+      <p className="italic text-sm">{new Date(date).toUTCString()}</p>
      </div>
-     <p>{data.result.question}</p>
+     <p>{data.messages[0].data.content}</p>
     </div>
    ))}
    <div className="h-full bg-white flex justify-start items-center flex-col p-5 rounded-lg [&>*]:my-2">
@@ -183,12 +219,14 @@ const HistorySection = ({ isLogin, historiHandler, handleNewSessionId, dataHisto
       <h3 className="text-xl font-bold">Catatan Konsulmu</h3>
      ) : (
       dataHistori.map((data, index) => (
-       <div key={index} className="bg-gradient-to-r from-sky-500 to-secondary rounded-lg p-5 text-white">
+       <div key={index} className="bg-gradient-to-r w-full from-sky-500 to-secondary rounded-lg p-5 text-white">
         <div className="flex justify-between items-center">
-         <h3 className="font-bold">{new Date(data.date).toDateString()}</h3>
-         {/* <p>{data.date}</p> */}
+         <h3 className="font-bold">{new Date(date).toDateString()}</h3>
+         <i className="fa-solid fa-trash cursor-pointer" onClick={() => deleteHandler(data._id)}></i>
         </div>
-        <p>{data.result.question}</p>
+        <p className="cursor-pointer" onClick={() => historiHandler(data._id)}>
+         {data.messages[0].data.content.split(' ').slice(0, 10).join(' ')}...
+        </p>
        </div>
       ))
      )
@@ -212,6 +250,7 @@ const ChatSection = ({ conversation, chat, response, text, setText, date, histor
    setUserGuide(false);
   }
  }, []);
+
  return (
   <section id="chat" className="w-[70%] relative rounded-lg h-full self-center bg-white flex flex-col justify-between px-5">
    <div className="py-5">
@@ -284,7 +323,7 @@ const ChatSection = ({ conversation, chat, response, text, setText, date, histor
      className="absolute left-0 rounded-md bg-secondary bg-opacity-25 backdrop-blur-sm  w-full h-full flex justify-center items-center"
      id="guide"
     >
-     <div className="bg-white p-10 rounded-md relative w-1/2 flex flex-col gap-5">
+     <div className="bg-white p-10 rounded-md relative w-2/3 flex flex-col gap-5 overflow-auto">
       <div className="absolute top-0 right-0 p-5">
        <i className="fa-solid fa-xmark text-2xl cursor-pointer" onClick={() => setUserGuide(false)}></i>
       </div>

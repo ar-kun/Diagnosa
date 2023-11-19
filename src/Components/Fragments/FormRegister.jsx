@@ -20,6 +20,7 @@ export const FormRegister = ({ title }) => {
    const user = {
     email: email,
     password: password,
+    confirmPassword: confirmPassword,
    };
 
    Register(user, (status, res) => {
@@ -42,8 +43,8 @@ export const FormRegister = ({ title }) => {
 
  return (
   <>
-   <h1 className="text-3xl font-bold">{title}</h1>
-   <p>Silakan isi form untuk mendaftarkan akun Anda.</p>
+   <h1 className="text-3xl font-bold dark:text-white">{title}</h1>
+   <p className="dark:text-white">Silakan isi form untuk mendaftarkan akun Anda.</p>
    <form onSubmit={handleRegister}>
     <InputForm label={'Email'} type={'email'} placeholder={'example@gmail.com'} id={'email'} name={'email'} ref={emailRef} />
     <InputForm label={'Password'} type={'password'} placeholder={'********'} id={'password'} name={'password'} />
@@ -88,10 +89,10 @@ export const FormRegister = ({ title }) => {
 
      <span>Sign in with Google</span>
     </Button>
-    <div className="text-center">
+    <div className="text-center dark:text-white">
      Sudah punya akun ?{' '}
      <Button href="/auth/login" className="text-secondary">
-      Daftar disini
+      Masuk disini
      </Button>
     </div>
    </form>

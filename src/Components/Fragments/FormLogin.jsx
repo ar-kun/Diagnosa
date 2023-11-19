@@ -34,8 +34,8 @@ export const FormLogin = ({ title }) => {
 
  return (
   <>
-   <h1 className="text-3xl font-bold">{title}</h1>
-   <p>Silakan isi form untuk mengakses akun Anda.</p>
+   <h1 className="text-3xl font-bold dark:text-white">{title}</h1>
+   <p className="dark:text-white">Silakan isi form untuk mengakses akun Anda.</p>
    {loginFailed && <p className="bg-slate-200 rounded-md text-red-500 py-2 font-bold text-center my-3">{loginFailed}</p>}
    <form onSubmit={handleLogin}>
     <InputForm label={'email'} type={'email'} placeholder={'example@gmail.com'} id={'email'} name={'email'} ref={emailRef} />
@@ -70,7 +70,7 @@ export const FormLogin = ({ title }) => {
     </Button>
     <Button
      type="submit"
-     className="text-dark mb-6 bg-white hover:bg-slate-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-white dark:focus:ring-slabg-slate-200 flex gap-5 justify-center items-center"
+     className="group text-dark mb-6 bg-white hover:bg-slate-200 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-primary dark:focus:ring-slabg-slate-200 flex gap-5 justify-center items-center"
     >
      <svg className="w-5 h-5" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g clipPath="url(#clip0_13183_10121)">
@@ -98,9 +98,9 @@ export const FormLogin = ({ title }) => {
       </defs>
      </svg>
 
-     <span>Sign in with Google</span>
+     <span className="dark:text-white dark:group-hover:text-dark">Sign in with Google</span>
     </Button>
-    <div className="text-center">
+    <div className="text-center dark:text-white">
      Belum punya akun ?{' '}
      <Button href="/auth/register" className="text-secondary">
       Daftar disini
